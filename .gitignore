@@ -1,3 +1,6 @@
+.DS_Store
+debug
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
