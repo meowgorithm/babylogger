@@ -67,7 +67,7 @@ func main() {
 }
 
 handler(w http.ResponseWriter, r *http.Request) {
-    fmt.FPrintln(w, "Oh, hi, I didn’t see you there.")
+    fmt.FPrintln(w, "Oh hi, I didn’t see you there.")
 }
 ```
 
