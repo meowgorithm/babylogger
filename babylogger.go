@@ -75,12 +75,13 @@ func (r *logWriter) WriteHeader(code int) {
 	r.ResponseWriter.WriteHeader(code)
 }
 
-// Log logs incoming and outgoing requests for a multiplexer. It should be the
-// first middleware so it can time requests accurately.
+// Middleware is the logging middleware where we log incoming and outgoing
+// requests for a multiplexer. It should be the first middleware called so it
+// can time requests accurately.
 //
 // It was designed for `goji.use()` as a middleware, but it's of course
 // compatible with the standard `http` library.
-func Log(next http.Handler) http.Handler {
+func Middleware(next http.Handler) http.Handler {
 	checkTTY()
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 

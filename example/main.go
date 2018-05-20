@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	http.Handle("/", babylogger.Log(http.HandlerFunc(handler)))
+	http.Handle("/", babylogger.Middleware(http.HandlerFunc(handler)))
 
 	go func() {
 		http.ListenAndServe(":1337", nil)
