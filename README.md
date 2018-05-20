@@ -9,7 +9,7 @@ We’ve used it with [Goji][goji] and the Go standard library, but it should wor
 with any multiplexer worth its salt. And by that we mean any multiplexer
 compatible with the standard library.
 
-Note that when running in non-terminal situations, ANSI escape sequences (read:
+Note that when running in non-terminal situations ANSI escape sequences (read:
 colors) will be stripped from the output.
 
 Also note that for accurate logging Babylogger should be the first middleware
