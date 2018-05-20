@@ -12,7 +12,7 @@ compatible with the standard library.
 Note that when running in non-terminal situations, ANSI escape sequences (read:
 colors) will be stripped from the output.
 
-Also note that for accurate logging, Babylogger should be the first middleware
+Also note that for accurate logging Babylogger should be the first middleware
 called.
 
 
