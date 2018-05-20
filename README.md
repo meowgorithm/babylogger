@@ -9,8 +9,19 @@ We’ve used it with [Goji][goji] and the Go standard library, but it should wor
 with any multiplexer worth its salt. And by that we mean any multiplexer
 compatible with the standard library.
 
-Note that for accurate logging, babylogger should be the first middleware
+Note that when running in non-terminal situations, ANSI escape sequences (read:
+colors) will be stripped from the output.
+
+Also note that for accurate logging, Babylogger should be the first middleware
 called.
+
+
+### What about Windows?
+
+We don't use Windows, but adding Windows support should be trivial enough with
+the help of a couple packages from [mattn][mattn]. If that's something you would
+like, submit an issue or pull request.
+
 
 ## Examples
 
@@ -65,3 +76,4 @@ handler(w http.ResponseWriter, r *http.Request) {
 MIT
 
 [goji]: http://goji.io
+[mattn]: https://github.com/mattn
