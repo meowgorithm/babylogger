@@ -7,12 +7,14 @@ import (
 )
 
 func main() {
-	http.Handle("/", babylogger.Middleware(http.HandlerFunc(handler)))
 
+	// HTTP server with Babylogger middleware
+	http.Handle("/", babylogger.Middleware(http.HandlerFunc(handler)))
 	go func() {
 		http.ListenAndServe(":1337", nil)
 	}()
 
+	// Perform some example HTTP requests, then exit
 	h := "http://localhost:1337"
 	c := &http.Client{}
 	c.Get(h + "/")
@@ -20,7 +22,7 @@ func main() {
 	c.Do(r)
 	r, _ = http.NewRequest("PUT", h+"/purr", nil)
 	c.Do(r)
-	http.Get(h + "/schnurr")
+	c.Get(h + "/schnurr")
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +36,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	case "/purr":
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("nope, not here"))
-	case "/schnurr":
+	default:
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("ouch"))
 	}
