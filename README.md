@@ -3,8 +3,7 @@ Babylogger
 
 A Go HTTP logger middleware, for babies.
 
-![Example image of Babylogger doing its logging]
-(https://i.imgur.com/VGg7Wl6.png)
+![Example image of Babylogger doing its logging](https://i.imgur.com/VGg7Wl6.png "Babylogger doing its logging")
 
 We’ve used it with [Goji][goji] and the Go standard library, but it should work
 with any multiplexer worth its salt. And by that we mean any multiplexer
