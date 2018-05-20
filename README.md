@@ -19,8 +19,8 @@ called.
 ### What about Windows?
 
 We don't use Windows, but adding Windows support should be trivial enough with
-the help of a couple packages from [mattn][mattn]. If that's something you would
-like, submit an issue or pull request.
+the help of a couple packages from [mattn][mattn] (see [this comment][windows]
+in the source). If that's something you'd like, submit a pull request.
 
 
 ## Examples
@@ -77,3 +77,4 @@ MIT
 
 [goji]: http://goji.io
 [mattn]: https://github.com/mattn
+[windows]: https://github.com/meowgorithm/babylogger/blob/master/babylogger.go#L45
