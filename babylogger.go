@@ -1,3 +1,56 @@
+// Package babylogger is a simple HTTP logging middleware. It works with any
+// multiplexer compatible with the Go standard library.
+//
+// When a terminal is present it will log using nice colors. When the output is
+// not in a terminal (for example in logs) ANSI escape sequences (read: colors)
+// will be stripped from the output.
+//
+// Also note that for accurate response time logging Babylogger should be the
+// first middleware called.
+//
+// Windows support is not currently implemented, however it would be trivial
+// enough with the help of a couple packages from Mattn:
+// http://github.com/mattn/go-isatty and https://github.com/mattn/go-colorable
+//
+// Example using the standard library:
+//
+//	package main
+//
+//	import (
+//		"fmt"
+//		"net/http"
+//		"github.com/magicnumbers/babylogger"
+//	)
+//
+//	func main() {
+//		http.Handle("/", babylogger.Middleware(http.HandlerFunc(handler)))
+//		http.ListenAndServe(":8000", nil)
+//	}
+//
+//	handler(w http.ResponseWriter, r *http.Request) {
+//		fmt.FPrintln(w, "Oh, hi, I didn’t see you there.")
+//	}
+//
+// Example with Goji:
+//
+//	import (
+//		"fmt"
+//		"net/http"
+//		"github.com/magicnumbers/babylogger"
+//		"goji.io"
+//		"goji.io/pat"
+//	)
+//
+//	func main() {
+//		mux := goji.NewMux()
+//		mux.Use(babylogger.Middleware)
+//		mux.HandleFunc(pat.Get("/"), handler)
+//		http.ListenAndServe(":8000", mux)
+//	}
+//
+//	handler(w http.ResponseWriter, r *http.Request) {
+//		fmt.FPrintln(w, "Oh hi, I didn’t see you there.")
+//	}
 package babylogger
 
 import (
@@ -77,10 +130,7 @@ func (r *logWriter) WriteHeader(code int) {
 
 // Middleware is the logging middleware where we log incoming and outgoing
 // requests for a multiplexer. It should be the first middleware called so it
-// can time requests accurately.
-//
-// It was designed for `goji.use()` as a middleware, but it's of course
-// compatible with the standard `http` library.
+// can log request times accurately.
 func Middleware(next http.Handler) http.Handler {
 	checkTTY()
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
