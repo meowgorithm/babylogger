@@ -1,6 +1,8 @@
 Babylogger
 ==========
 
+[![GoDoc Badge](https://godoc.org/github.com/magicnumbers/babylogger?status.svg)](http://godoc.org/github.com/magicnumbers/babylogger)
+
 A Go HTTP logger middleware, for babies.
 
 ![Example image of Babylogger doing its logging](https://i.imgur.com/VGg7Wl6.png "Babylogger doing its logging")
