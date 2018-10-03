@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"babylogger"
+	"github.com/magicnumbers/babylogger"
 )
 
 func main() {
