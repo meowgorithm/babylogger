@@ -61,6 +61,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/dustin/go-humanize"
 	"golang.org/x/crypto/ssh/terminal"
 )
 
@@ -169,7 +170,15 @@ func Middleware(next http.Handler) http.Handler {
 			status = colors[red] + status
 		}
 
-		bytes := fmt.Sprintf("%s%dB", colors[grey], writer.bytes)
+		// The excellent humanize package adds a space between the integer and
+		// the unit as far as bytes are conerned (105 B). In our case that
+		// makes it a little harder on the eyes when scanning the logs, so
+		// we're stripping that space
+		formattedBytes := strings.Replace(
+			humanize.Bytes(uint64(writer.bytes)),
+			" ", "", 1)
+
+		bytes := fmt.Sprintf("%s%s", colors[grey], formattedBytes)
 		time := fmt.Sprintf("%s%v", colors[darkGrey], elapsedTime)
 
 		// Log response
