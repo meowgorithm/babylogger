@@ -36,7 +36,7 @@ package main
 import (
     "fmt"
     "net/http"
-    "github.com/meowgorithm/babylogger"
+    "github.com/magicnumbers/babylogger"
 )
 
 func main() {
@@ -56,7 +56,7 @@ handler(w http.ResponseWriter, r *http.Request) {
 import (
     "fmt"
     "net/http"
-    "github.com/meowgorithm/babylogger"
+    "github.com/magicnumbers/babylogger"
     "goji.io"
     "goji.io/pat"
 )
@@ -80,4 +80,4 @@ MIT
 
 [goji]: http://goji.io
 [mattn]: https://github.com/mattn
-[windows]: https://github.com/meowgorithm/babylogger/blob/master/babylogger.go#L45
+[windows]: https://github.com/magicnumbers/babylogger/blob/master/babylogger.go#L45
