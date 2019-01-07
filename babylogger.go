@@ -61,7 +61,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/dustin/go-humanize"
+	humanize "github.com/dustin/go-humanize"
 	"golang.org/x/crypto/ssh/terminal"
 )
 
@@ -156,7 +156,16 @@ func Middleware(next http.Handler) http.Handler {
 
 		arrow = colors[darkGrey] + "->"
 		startTime := time.Now()
-		next.ServeHTTP(writer, r)
+
+		// Not sure why the request could possibly be nil, but it has happened
+		if r == nil {
+			http.Error(w, http.StatusText(http.StatusInternalServerError),
+				http.StatusInternalServerError)
+			writer.code = http.StatusInternalServerError
+		} else {
+			next.ServeHTTP(writer, r)
+		}
+
 		elapsedTime := time.Now().Sub(startTime)
 
 		status := fmt.Sprintf("%d %s", writer.code, http.StatusText(writer.code))
