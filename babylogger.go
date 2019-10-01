@@ -54,8 +54,10 @@
 package babylogger
 
 import (
+	"bufio"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"strings"
@@ -127,6 +129,16 @@ func (r *logWriter) Write(p []byte) (int, error) {
 func (r *logWriter) WriteHeader(code int) {
 	r.code = code
 	r.ResponseWriter.WriteHeader(code)
+}
+
+// Hijack exposes the underlying ResponseWriter Hijacker implementation for
+// WebSocket compatibility
+func (r *logWriter) Hijack() (net.Conn, *bufio.ReadWriter, error) {
+	hj, ok := r.ResponseWriter.(http.Hijacker)
+	if !ok {
+		return nil, nil, fmt.Errorf("WebServer does not support hijacking")
+	}
+	return hj.Hijack()
 }
 
 // Middleware is the logging middleware where we log incoming and outgoing
