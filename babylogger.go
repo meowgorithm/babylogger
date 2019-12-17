@@ -19,7 +19,7 @@
 //	import (
 //		"fmt"
 //		"net/http"
-//		"github.com/magicnumbers/babylogger"
+//		"github.com/meowgorithm/babylogger"
 //	)
 //
 //	func main() {
@@ -36,7 +36,7 @@
 //	import (
 //		"fmt"
 //		"net/http"
-//		"github.com/magicnumbers/babylogger"
+//		"github.com/meowgorithm/babylogger"
 //		"goji.io"
 //		"goji.io/pat"
 //	)
