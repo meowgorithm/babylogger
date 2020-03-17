@@ -1,7 +1,7 @@
 Babylogger
 ==========
 
-[![GoDoc Badge](https://godoc.org/github.com/magicnumbers/babylogger?status.svg)](http://godoc.org/github.com/magicnumbers/babylogger)
+[![GoDoc Badge](https://godoc.org/github.com/magicnumbers/babylogger?status.svg)](https://pkg.go.dev/github.com/meowgorithm/babylogger)
 
 A Go HTTP logger middleware, for babies.
 
