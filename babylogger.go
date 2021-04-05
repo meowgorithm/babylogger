@@ -59,59 +59,54 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 
+	"github.com/charmbracelet/lipgloss"
 	humanize "github.com/dustin/go-humanize"
-	"golang.org/x/crypto/ssh/terminal"
 )
 
-const (
-	reset = "\x1b[0m"
-	fg    = "\x1b[38;5;" // bg prefix is "\x1b[48;5;"
-	end   = "m"
-)
-
-// Color keys
-const (
-	violet = iota
-	red
-	yellow
-	green
-	cyan
-	darkGrey
-	grey
-)
-
+// Styles.
 var (
-	colors = map[int]string{
-		violet:   fg + "62" + end,
-		red:      fg + "204" + end,
-		yellow:   fg + "192" + end,
-		green:    fg + "48" + end,
-		cyan:     fg + "86" + end,
-		darkGrey: fg + "240" + end,
-		grey:     fg + "250" + end,
-	}
-)
+	timeStyle = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
+		Light: "240",
+		Dark:  "240",
+	})
 
-// See if we're in a terminal and, if so, unset color variables
-func checkTTY() {
-	// So we could check for a Windows terminal with:
-	//     http://github.com/mattn/go-isatty
-	//
-	// And then, handle colors in Windows terminals with:
-	//     https://github.com/mattn/go-colorable
-	//
-	// But we're avoiding the (popular) `go-isatty` package for now because it
-	// imports the "unsafe" pacakge. It would probably be fine though.
-	if !terminal.IsTerminal(int(os.Stdout.Fd())) {
-		for k := range colors {
-			colors[k] = ""
-		}
-	}
-}
+	uriStyle = timeStyle.Copy()
+
+	methodStyle = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
+		Light: "62",
+		Dark:  "62",
+	})
+
+	http200Style = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
+		Light: "35",
+		Dark:  "48",
+	})
+
+	http300Style = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
+		Light: "208",
+		Dark:  "192",
+	})
+
+	http400Style = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
+		Light: "39",
+		Dark:  "86",
+	})
+
+	http500Style = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
+		Light: "203",
+		Dark:  "204",
+	})
+
+	subtleStyle = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
+		Light: "250",
+		Dark:  "250",
+	})
+
+	addressStyle = subtleStyle.Copy()
+)
 
 type logWriter struct {
 	http.ResponseWriter
@@ -145,7 +140,6 @@ func (r *logWriter) Hijack() (net.Conn, *bufio.ReadWriter, error) {
 // requests for a multiplexer. It should be the first middleware called so it
 // can log request times accurately.
 func Middleware(next http.Handler) http.Handler {
-	checkTTY()
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		addr := r.RemoteAddr
@@ -153,20 +147,20 @@ func Middleware(next http.Handler) http.Handler {
 			addr = addr[:colon]
 		}
 
-		arrow := colors[darkGrey] + "<-"
-		method := colors[violet] + r.Method
-		uri := colors[grey] + r.RequestURI
-		address := colors[darkGrey] + addr
+		arrow := subtleStyle.Render("<-")
+		method := methodStyle.Render(r.Method)
+		uri := uriStyle.Render(r.RequestURI)
+		address := addressStyle.Render(addr)
 
 		// Log request
-		log.Printf("%s %s %s %s%s", arrow, method, uri, address, reset)
+		log.Printf("%s %s %s %s", arrow, method, uri, address)
 
 		writer := &logWriter{
 			ResponseWriter: w,
 			code:           http.StatusOK, // default. so important! see above.
 		}
 
-		arrow = colors[darkGrey] + "->"
+		arrow = subtleStyle.Render("->")
 		startTime := time.Now()
 
 		// Not sure why the request could possibly be nil, but it has happened
@@ -180,16 +174,19 @@ func Middleware(next http.Handler) http.Handler {
 
 		elapsedTime := time.Now().Sub(startTime)
 
-		status := fmt.Sprintf("%d %s", writer.code, http.StatusText(writer.code))
+		var statusStyle lipgloss.Style
+
 		if writer.code < 300 { // 200s
-			status = colors[green] + status
+			statusStyle = http200Style
 		} else if writer.code < 400 { // 300s
-			status = colors[yellow] + status
+			statusStyle = http300Style
 		} else if writer.code < 500 { // 400s
-			status = colors[cyan] + status
+			statusStyle = http400Style
 		} else { // 500s
-			status = colors[red] + status
+			statusStyle = http500Style
 		}
+
+		status := statusStyle.Render(fmt.Sprintf("%d %s", writer.code, http.StatusText(writer.code)))
 
 		// The excellent humanize package adds a space between the integer and
 		// the unit as far as bytes are conerned (105 B). In our case that
@@ -199,10 +196,10 @@ func Middleware(next http.Handler) http.Handler {
 			humanize.Bytes(uint64(writer.bytes)),
 			" ", "", 1)
 
-		bytes := fmt.Sprintf("%s%s", colors[grey], formattedBytes)
-		time := fmt.Sprintf("%s%v", colors[darkGrey], elapsedTime)
+		bytes := subtleStyle.Render(formattedBytes)
+		time := timeStyle.Render(fmt.Sprintf("%s", elapsedTime))
 
 		// Log response
-		log.Printf("%s %s %s %v%s", arrow, status, bytes, time, reset)
+		log.Printf("%s %s %s %v", arrow, status, bytes, time)
 	})
 }

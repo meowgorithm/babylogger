@@ -80,4 +80,3 @@ MIT
 
 [goji]: http://goji.io
 [mattn]: https://github.com/mattn
-[windows]: https://github.com/magicnumbers/babylogger/blob/master/babylogger.go#L45
