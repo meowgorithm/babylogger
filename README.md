@@ -19,13 +19,6 @@ Also note that for accurate response time logging Babylogger should be the first
 called.
 
 
-### What about Windows?
-
-We don't use Windows, but adding Windows support should be trivial enough with
-the help of a couple packages from [mattn][mattn] (see [this comment][windows]
-in the source). If that's something you'd like, submit a pull request.
-
-
 ## Examples
 
 ### Standard Library
