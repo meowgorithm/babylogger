@@ -68,42 +68,28 @@ import (
 
 // Styles.
 var (
-	timeStyle = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
-		Light: "240",
-		Dark:  "240",
-	})
+	timeStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.AdaptiveColor{Light: "240", Dark: "240"})
 
 	uriStyle = timeStyle.Copy()
 
-	methodStyle = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
-		Light: "62",
-		Dark:  "62",
-	})
+	methodStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.AdaptiveColor{Light: "62", Dark: "62"})
 
-	http200Style = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
-		Light: "35",
-		Dark:  "48",
-	})
+	http200Style = lipgloss.NewStyle().
+			Foreground(lipgloss.AdaptiveColor{Light: "35", Dark: "48"})
 
-	http300Style = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
-		Light: "208",
-		Dark:  "192",
-	})
+	http300Style = lipgloss.NewStyle().
+			Foreground(lipgloss.AdaptiveColor{Light: "208", Dark: "192"})
 
-	http400Style = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
-		Light: "39",
-		Dark:  "86",
-	})
+	http400Style = lipgloss.NewStyle().
+			Foreground(lipgloss.AdaptiveColor{Light: "39", Dark: "86"})
 
-	http500Style = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
-		Light: "203",
-		Dark:  "204",
-	})
+	http500Style = lipgloss.NewStyle().
+			Foreground(lipgloss.AdaptiveColor{Light: "203", Dark: "204"})
 
-	subtleStyle = lipgloss.NewStyle().Foreground(lipgloss.AdaptiveColor{
-		Light: "250",
-		Dark:  "250",
-	})
+	subtleStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.AdaptiveColor{Light: "250", Dark: "250"})
 
 	addressStyle = subtleStyle.Copy()
 )
