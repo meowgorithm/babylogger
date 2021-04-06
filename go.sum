@@ -1,5 +1,5 @@
-github.com/charmbracelet/lipgloss v0.1.0 h1:4/UGLjW9Ph3gGGG/SqGVbTzJzLZVB6pf9Qwbx0XQe1o=
-github.com/charmbracelet/lipgloss v0.1.0/go.mod h1:5D8zradw52m7QmxRF6QgwbwJi9je84g8MkWiGN07uKg=
+github.com/charmbracelet/lipgloss v0.1.1 h1:VdEOZxalvY8me9axyGz3grJF/1e6FY4Xy9/VwqQ/ctE=
+github.com/charmbracelet/lipgloss v0.1.1/go.mod h1:5D8zradw52m7QmxRF6QgwbwJi9je84g8MkWiGN07uKg=
 github.com/dustin/go-humanize v1.0.0 h1:VSnTsYCnlFHaM2/igO1h6X3HA71jcobQuxemgkq4zYo=
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
 github.com/lucasb-eyer/go-colorful v1.2.0 h1:1nnpGOrhyZZuNyfu1QjKiUICQ74+3FNCN69Aj6K7nkY=
